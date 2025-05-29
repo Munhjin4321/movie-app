@@ -1,7 +1,19 @@
 import { ArrowRight } from "lucide-react";
 import { MovieCard } from "./MovieCard";
+import { useEffect, useState } from "react";
+import { getUpcoming } from "../../utils/getUpcoming";
 
-export const Upcoming = () => {
+export const Upcoming = ({movie}) => {
+  const [upComing, setUpcoming] = useState ([]);
+    useEffect(() => {
+      
+      const getComing = async () => {
+        const response = await getUpcoming();
+        setUpcoming(response);
+      };
+      getComing();
+    }, []);
+    // console.log("uppppp",  upComing)
   return (
     <div>
       <div className="pb-6 pt-14 flex justify-between">
@@ -10,8 +22,8 @@ export const Upcoming = () => {
         
       </div>
       <div className="grid grid-cols-2 px-5 gap-5 md:grid-cols-3 lg:grid-cols-5 ">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <MovieCard />
+        {upComing?.results?.slice(0, 10).map((movie, index) => (
+          <MovieCard key={index} movie={movie}/>
         ))}
       </div>
     </div>

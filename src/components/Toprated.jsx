@@ -6,12 +6,13 @@ import { getTopRated } from "../../utils/getTopRated";
 export const TopRated = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   useEffect(() => {
-    const getTopRated = async () => {
+    const getTopRate = async () => {
       const response = await getTopRated();
-      setTopRatedMovies(response.results);
+      setTopRatedMovies(response);
     };
-    getTopRated();
+    getTopRate();
   }, []);
+  // console.log( "AHAHA", topRatedMovies)
   return (
     <div>
       <div className="pb-6 pt-14 flex justify-between">
@@ -22,7 +23,7 @@ export const TopRated = () => {
         {/* <Link href={"/category/popular"}></Link> */}
       </div>
       <div className="grid grid-cols-2 px-5 gap-5 md:grid-cols-3 lg:grid-cols-5 ">
-        {topRatedMovies.slice(0, 10).map((movie) => {
+        {topRatedMovies?.results?.slice(0, 10).map((movie) => {
           return <MovieCard key={movie.id} movie={movie} />;
         })}
       </div>

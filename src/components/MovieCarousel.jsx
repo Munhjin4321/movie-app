@@ -11,21 +11,21 @@ import {
 import { MovieCarouselItem } from "./MovieCarouselItem";
 
 import Autoplay from "embla-carousel-autoplay";
-export const MovieCarousel = () => {
+export const MovieCarousel = ({ nowPlayingMovie }) => {
   return (
     <Carousel
-      // className="relative"
-      // plugins={[
-      //   Autoplay({
-      //     delay: 2000,
-      //   }),
-      // ]}
+    // className="relative"
+    // plugins={[
+    //   Autoplay({
+    //     delay: 2000,
+    //   }),
+    // ]}
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
+        {nowPlayingMovie?.map((movie) => (
+          <CarouselItem key={movie.id}>
             <div className="p-4">
-              <MovieCarouselItem />
+              <MovieCarouselItem  />
             </div>
           </CarouselItem>
         ))}

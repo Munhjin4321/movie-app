@@ -1,6 +1,17 @@
 import { PlayIcon, StarIcon } from "lucide-react";
-
+import { useEffect, useState } from "react";
+import { getNowPlaying } from "../../utils/getNowPlaying";
 export const MovieCarouselItem = () => {
+  // const imgUrl = {`${NEXT_PUBLIC_TMDB_IMAGE_SERVICE_URL}`}
+  const [carousel, setCarousel] = useState([]);
+  useEffect(() => {
+    const getCarousel = async () => {
+      const response = await getNowPlaying();
+      // console.log("carousel;", response);
+      setCarousel(response?.results);
+    };
+    getCarousel();
+  }, []);
   return (
     <div>
       <div className=" md:flex md:relative ">
@@ -12,11 +23,15 @@ export const MovieCarouselItem = () => {
           <div className="flex justify-between p-2 md:flex-col">
             <div className="md:text-white">
               <p className="text-sm ">Now Playing:</p>
-              <h3 className="text-2xl  text-foreground font-bold">Wicked</h3>
+              <h3 className="text-2xl  text-foreground font-bold">
+                {carousel.title}
+              </h3>
             </div>
             <div className="flex p-2 ">
-              <StarIcon className="text-yellow-300 fill-yellow-300 " />
-              <p className="w-[36] h-[16] pl-6px text-lg md:text-white">6.9</p>
+              {/* <StarIcon className="text-yellow-300 fill-yellow-300 " /> */}
+              <p className="w-[36] h-[16] pl-6px text-lg md:text-white">
+                {carousel.vote_average}
+              </p>
 
               <p className="text-gray-500 text-lg">/10</p>
             </div>
@@ -31,7 +46,7 @@ export const MovieCarouselItem = () => {
             <div className="flex pt-6">
               <button className=" flex gap-2 text-white md:text-black bg-black md:bg-white hover:bg-gray-900 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 ">
                 {" "}
-                <PlayIcon className="pt-1 gap-2 pb-1" /> Watch Trailer{" "}
+                {/* <PlayIcon className="pt-1 gap-2 pb-1" /> Watch Trailer{" "} */}
               </button>
             </div>
           </div>
