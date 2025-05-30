@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -11,7 +9,25 @@ import {
 import { MovieCarouselItem } from "./MovieCarouselItem";
 
 import Autoplay from "embla-carousel-autoplay";
-export const MovieCarousel = ({ nowPlayingMovie }) => {
+import { getNowPlaying } from "../../utils/getNowPlaying";
+import { useEffect, useState } from "react";
+
+export const MovieCarousel = () => {
+
+  
+
+  const [carousel, setCarousel] = useState([]);
+  useEffect(() => {
+    const getCarousel = async () => {
+      const response = await getNowPlaying();
+      // console.log("carousel;", response);
+      setCarousel(response?.results);
+    };
+    getCarousel();
+  }, []);
+  console.log("jjj;", carousel )
+
+
   return (
     <Carousel
     // className="relative"
@@ -22,10 +38,10 @@ export const MovieCarousel = ({ nowPlayingMovie }) => {
     // ]}
     >
       <CarouselContent>
-        {nowPlayingMovie?.map((movie) => (
+        {carousel?.map((movie) => (
           <CarouselItem key={movie.id}>
             <div className="p-4">
-              <MovieCarouselItem  />
+              <MovieCarouselItem movie={movie} />
             </div>
           </CarouselItem>
         ))}

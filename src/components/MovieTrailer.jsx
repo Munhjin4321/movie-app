@@ -1,33 +1,56 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
+import YouTube from "react-youtube";
+import { getMovieTrailer } from "../../utils/getMovieTrailer";
+import { Button } from "./ui/button";
 
-export const MovieTrailer = () => {
+export const MovieTrailer = ({movieId}) => {
+  const [trailer, setTrailer] = useState([]);
+  useEffect(() => {
+    const getMovieTrailerById = async() =>{
+      if(!movieId)
+        return;
+      try{
+        console.log("end movie bna");
+        const data = await getMovieTrailer(movieId);
+        console.log("this is data", data);
+        
+        setTrailer(data?.results);
+      }catch (error){
+        console.error("Failed to fetch movie trailer",error);
+      }
+    };
+    getMovieTrailerById();
+
+
+  },[movieId]);
+  const movieTrailer = trailer?.find(
+    (video) => video.name === "Official Trailer"
+  );
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button variant="">Watch Trailer</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4"></div>
-          <div className="grid grid-cols-4 items-center gap-4"></div>
+
+      <DialogContent className="sm:max-w-fit">
+        <div>
+          <YouTube
+          className="h-full w-full"
+          videoId={movieTrailer?.key}
+            opts={{
+              height: "390",
+              width: "640",
+              playerVars: {
+                autoplay: 1,
+              },
+            }}
+          />
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
