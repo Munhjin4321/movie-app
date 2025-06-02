@@ -1,7 +1,7 @@
-export const getMovieTrailer= async () => {
+export const getMovieTrailer = async (movieId) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}movie/${id}/credits?language=en-US`,
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}movie/${movieId}/videos?language=en-US`,
 
       {
         method: "GET",

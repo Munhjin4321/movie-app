@@ -1,13 +1,11 @@
 import { PlayIcon, StarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import { getNowPlaying } from "../../utils/getNowPlaying";
-import { MovieTrailer } from "./MovieTrailer";
 import Link from "next/link";
+import { MovieTrailer } from "./MovieTrailer";
 export const MovieCarouselItem = ({ movie }) => {
   return (
     <div>
       <div className=" md:flex md:relative ">
-        <Link href={`/details/${movie}`}>
+        <Link href={`/details/${movie.id}`}>
           <img
             src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
             className="h-[246px] w-screen md:h-[600px] object-cover"
@@ -34,7 +32,8 @@ export const MovieCarouselItem = ({ movie }) => {
             <div className="flex pt-6">
               <button className=" flex gap-2 text-white md:text-black bg-black md:bg-white hover:bg-gray-900 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 ">
                 {""}
-                <PlayIcon className="pt-1 gap-2 pb-1" /> <MovieTrailer />
+                <PlayIcon className="pt-1 gap-2 pb-1" />{" "}
+                <MovieTrailer movieId={movie.id} />
               </button>
             </div>
           </div>

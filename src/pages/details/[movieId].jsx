@@ -1,10 +1,10 @@
+import { MoreLikeThis } from "@/components/Genre/MoreLikeThis";
 import { Top } from "@/components/Genre/Top";
-import { Header } from "@/components/Header";
 import { MovieTrailer } from "@/components/MovieTrailer";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getDetails } from "../../../utils/getDetails";
-import { MoreLikeThis } from "@/components/Genre/MoreLikeThis";
+import { MovieDetailImg } from "@/components/Genre/MovieDetailImg";
 
 export const DetailPage = () => {
   const [movie, setMovie] = useState({});
@@ -20,17 +20,16 @@ export const DetailPage = () => {
     };
     getDetailPage();
   }, [movieId]);
-  console.log(movie);
+
   return (
     <div className="container mx-auto overflow-hidden max-w-1280px px-2 py-4">
-      <Header />
+
       <Top movie={movie} />
-      <MovieTrailer movie={movie} />
-      <div className="flex gap-4">
-        {/* <Genre movie={movie}/> */}
-        </div>
-      // <MoreLikeThis movieId={movie.id} />
-      {/* <Footer/> */}
+      <MovieDetailImg movie={movie}/>
+      <MovieTrailer movieId={movie.id} />
+      <div className="flex gap-4">{/* <Genre movie={movie}/> */}</div>
+      <MoreLikeThis movieId={movie.id} />
+     
     </div>
   );
 };

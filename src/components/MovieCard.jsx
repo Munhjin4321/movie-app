@@ -14,7 +14,7 @@ export const MovieCard = ({ movie }) => {
           <p className="text-[#71717A]">/10</p>
         </div>
         <p className="pb-8 text[#09090B] text-lg"> {movie.title} </p>
-      </div>
+      </div>w
     </div>
   );
 };
